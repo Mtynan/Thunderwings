@@ -27,9 +27,9 @@ namespace Infrastructure.Persistence.Repositories
         }
 
 
-        public List<MilitaryJet> GetJets()
+        public Task<List<MilitaryJet>> GetJets()
         {
-            return _jets;
+            return Task.FromResult(_jets);
         }
     }
 }

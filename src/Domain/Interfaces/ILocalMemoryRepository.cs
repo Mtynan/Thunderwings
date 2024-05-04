@@ -9,6 +9,6 @@ namespace Domain.Interfaces
 {
     public interface ILocalMemoryRepository
     {
-        List<MilitaryJet> GetJets();
+        Task<List<MilitaryJet>> GetJets();
     }
 }

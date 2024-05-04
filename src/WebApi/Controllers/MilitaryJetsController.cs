@@ -1,21 +1,23 @@
-﻿using Domain.Interfaces;
+﻿using Application.Features.MilitaryJets.Queries;
+using Domain.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
     public class MilitaryJetsController : BaseApiController
     {
-        private readonly ILocalMemoryRepository _localMemoryRepository;
-        public MilitaryJetsController(ILocalMemoryRepository localMemoryRepository)
+        private readonly IMediator _mediator;
+        public MilitaryJetsController(IMediator mediator)
         {
-            _localMemoryRepository = localMemoryRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public IActionResult GetJets()
+        public async Task<IActionResult> GetJets()
         {   
-            var jets = _localMemoryRepository.GetJets();
-            return Ok(jets);
+            var result = await _mediator.Send(new GetMilitaryJetsQuery());
+            return HandleResult(result);
         }
     }
 }
