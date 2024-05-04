@@ -18,6 +18,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thunderwings.UnitTests", "tests\Thunderwings.UnitTests.csproj", "{C6605CE5-B86B-4406-BC7B-3CEF17780DBF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{215FC814-E5BA-441C-9A3D-BE4597D6D1E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +44,10 @@ Global
 		{9DCA2051-40E5-4FF6-A9A7-4E4846A69517}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DCA2051-40E5-4FF6-A9A7-4E4846A69517}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DCA2051-40E5-4FF6-A9A7-4E4846A69517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6605CE5-B86B-4406-BC7B-3CEF17780DBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6605CE5-B86B-4406-BC7B-3CEF17780DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6605CE5-B86B-4406-BC7B-3CEF17780DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6605CE5-B86B-4406-BC7B-3CEF17780DBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +57,7 @@ Global
 		{F4B98C2B-D927-461F-AEA7-8D2F6E96EBE1} = {280800EC-1247-4DF8-9124-8B6D24D54A7E}
 		{BAF6F0FA-C494-4DB8-945A-17E6D73E45FD} = {280800EC-1247-4DF8-9124-8B6D24D54A7E}
 		{9DCA2051-40E5-4FF6-A9A7-4E4846A69517} = {280800EC-1247-4DF8-9124-8B6D24D54A7E}
+		{C6605CE5-B86B-4406-BC7B-3CEF17780DBF} = {215FC814-E5BA-441C-9A3D-BE4597D6D1E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5559159C-C939-4F17-A4E1-96B30DB96E6A}

@@ -6,5 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Common
 {
-    public sealed record MilitaryJetFilter(string? Name, string? Manufacturer, string? Country, string? Role, int? TopSpeed, int? Price);
+    public sealed record MilitaryJetFilter(
+    string? Name = null,
+    string? Manufacturer = null,
+    string? Country = null,
+    string? Role = null,
+    int? TopSpeed = null,
+    int? Price = null);
 }
