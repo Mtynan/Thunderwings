@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Common;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Domain.Interfaces
 {
     public interface ILocalMemoryRepository
     {
-        Task<List<MilitaryJet>> GetJets(string? Name, string? Manufacturer, string? Country, string? Role, int? TopSpeed, int? Price);
+        Task<(List<MilitaryJet> filteredJets, int totalCount)> GetJets(MilitaryJetFilter filter, int pageNumber, int pageSize);
     }
 }

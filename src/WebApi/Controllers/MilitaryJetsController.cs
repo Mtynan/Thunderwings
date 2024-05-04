@@ -17,7 +17,9 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetJets([FromQuery] GetMilitaryJetsRequest req)
         {   
-            var result = await _mediator.Send(new GetMilitaryJetsQuery(req.Name, req.Manufacturer, req.Country, req.Role, req.TopSpeed, req.Price));
+            var result = await _mediator.Send(new GetMilitaryJetsQuery(
+                req.Name, req.Manufacturer, req.Country, req.Role, req.TopSpeed, req.Price,
+                req.PageNumber, req.PageSize));
             return HandleResult(result);
         }
     }

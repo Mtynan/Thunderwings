@@ -3,12 +3,13 @@ using Domain.Interfaces;
 using Domain.Entities;
 using MediatR;
 using AutoMapper;
+using Domain.Common;
 
 namespace Application.Features.MilitaryJets.Queries
 {
-    public record GetMilitaryJetsQuery(string? Name, string? Manufacturer, string? Country, string? Role, int? TopSpeed, int? Price) : IRequest<Response<List<MilitaryJetDto>>>;
+    public record GetMilitaryJetsQuery(string? Name, string? Manufacturer, string? Country, string? Role, int? TopSpeed, int? Price, int PageNumber, int PageSize) : IRequest<Response<PagedResult<MilitaryJetDto>>>;
 
-    internal sealed class GetMilitaryJetsQueryHandler : IRequestHandler<GetMilitaryJetsQuery, Response<List<MilitaryJetDto>>>
+    internal sealed class GetMilitaryJetsQueryHandler : IRequestHandler<GetMilitaryJetsQuery, Response<PagedResult<MilitaryJetDto>>>
     {
         private readonly ILocalMemoryRepository _localMemoryRepository;
         private readonly IMapper _mapper;
@@ -17,15 +18,20 @@ namespace Application.Features.MilitaryJets.Queries
             _localMemoryRepository = localMemoryRepository;
             _mapper = mapper;
         }
-        public async Task<Response<List<MilitaryJetDto>>> Handle(GetMilitaryJetsQuery request, CancellationToken cancellationToken)
+        public async Task<Response<PagedResult<MilitaryJetDto>>> Handle(GetMilitaryJetsQuery request, CancellationToken cancellationToken)
         {
-            var jets = await _localMemoryRepository.GetJets(request.Name, request.Manufacturer, request.Country, request.Role, request.TopSpeed, request.Price);
-            if(jets is null)
+            var filter = new MilitaryJetFilter(request.Name, request.Manufacturer, request.Country, request.Role, request.TopSpeed, request.Price);
+          
+            var (filteredJets, totalCount) = await _localMemoryRepository.GetJets(filter, request.PageNumber, request.PageSize);
+
+            if (filteredJets is null || filteredJets.Count == 0)
             {
-                return Response<List<MilitaryJetDto>>.Failure();
+                return Response<PagedResult<MilitaryJetDto>>.Failure();
             }
-            var dtos = _mapper.Map<List<MilitaryJetDto>>(jets);
-            return Response<List<MilitaryJetDto>>.Success(dtos);
+
+            var dtos = _mapper.Map<List<MilitaryJetDto>>(filteredJets);
+            var pagedResult = new PagedResult<MilitaryJetDto>(dtos, totalCount, request.PageNumber, request.PageSize);
+            return Response<PagedResult<MilitaryJetDto>>.Success(pagedResult);
         }
     }
 }
