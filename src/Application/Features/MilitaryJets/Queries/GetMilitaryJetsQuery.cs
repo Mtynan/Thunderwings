@@ -11,9 +11,9 @@ namespace Application.Features.MilitaryJets.Queries
 
     internal sealed class GetMilitaryJetsQueryHandler : IRequestHandler<GetMilitaryJetsQuery, Response<PagedResult<MilitaryJetDto>>>
     {
-        private readonly ILocalMemoryRepository _localMemoryRepository;
+        private readonly ILocalMemoryJetRepository _localMemoryRepository;
         private readonly IMapper _mapper;
-        public GetMilitaryJetsQueryHandler(ILocalMemoryRepository localMemoryRepository, IMapper mapper)
+        public GetMilitaryJetsQueryHandler(ILocalMemoryJetRepository localMemoryRepository, IMapper mapper)
         {
             _localMemoryRepository = localMemoryRepository;
             _mapper = mapper;
@@ -26,7 +26,7 @@ namespace Application.Features.MilitaryJets.Queries
 
             if (filteredJets is null || filteredJets.Count == 0)
             {
-                return Response<PagedResult<MilitaryJetDto>>.Failure();
+                return Response<PagedResult<MilitaryJetDto>>.SuccessNoContent();
             }
 
             var dtos = _mapper.Map<List<MilitaryJetDto>>(filteredJets);

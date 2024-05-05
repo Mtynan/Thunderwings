@@ -1,4 +1,5 @@
-﻿using Application.Features.MilitaryJets;
+﻿using Application.Features.Basket;
+using Application.Features.MilitaryJets;
 using AutoMapper;
 using Domain.Entities;
 using System;
@@ -14,6 +15,8 @@ namespace Application.Features.MappingProfile
         public MappingProfile()
         {
             CreateMap<MilitaryJet, MilitaryJetDto>();
+            CreateMap<Domain.Entities.Basket, BasketDto>();
+            CreateMap<BasketItem, BasketItemDto>();
         }
     }
 }

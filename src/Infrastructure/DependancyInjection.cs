@@ -13,7 +13,8 @@ namespace Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
-            services.AddSingleton<ILocalMemoryRepository, LocalMemoryRepository>();
+            services.AddSingleton<ILocalMemoryJetRepository, LocalMemoryJetRepository>();
+            services.AddSingleton<ILocalMemoryBasketRepository, LocalMemoryBasketRepository>();
 
             return services;
         }

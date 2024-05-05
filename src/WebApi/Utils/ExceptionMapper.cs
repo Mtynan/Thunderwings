@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Domain.Exceptions;
+using FluentValidation;
 
 namespace WebApi.Utils
 {
@@ -8,6 +9,7 @@ namespace WebApi.Utils
         {
             return ex switch
             {
+                NotFoundException e => (StatusCodes.Status404NotFound, e.Message),
                 ValidationException e => (StatusCodes.Status400BadRequest, e.Message),
                 _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred")
             };

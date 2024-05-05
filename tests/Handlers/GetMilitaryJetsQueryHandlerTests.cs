@@ -15,13 +15,13 @@ namespace Thunderwings.UnitTests.Handlers
 {
     public class GetMilitaryJetsQueryHandlerTests
     {
-        private readonly Mock<ILocalMemoryRepository> _mockRepo;
+        private readonly Mock<ILocalMemoryJetRepository> _mockRepo;
         private readonly Mock<IMapper> _mockMapper;
         private readonly GetMilitaryJetsQueryHandler _handler;
 
         public GetMilitaryJetsQueryHandlerTests()
         {
-            _mockRepo = new Mock<ILocalMemoryRepository>();
+            _mockRepo = new Mock<ILocalMemoryJetRepository>();
             _mockMapper = new Mock<IMapper>();
             _handler = new GetMilitaryJetsQueryHandler(_mockRepo.Object, _mockMapper.Object);
         }
@@ -57,7 +57,7 @@ namespace Thunderwings.UnitTests.Handlers
         }
 
         [Fact]
-        public async Task Handle_ReturnsFailureWhenNoDataFound()
+        public async Task Handle_ReturnsSuccessNoContentWhenNoDataFound()
         {
             // arrange
             var filter = new MilitaryJetFilter();
@@ -70,7 +70,8 @@ namespace Thunderwings.UnitTests.Handlers
             var result = await _handler.Handle(query, CancellationToken.None);
 
             // assert
-            Assert.False(result.IsSuccess);
+            Assert.True(result.IsSuccess);
+            Assert.Null(result.Data);
         }
     }
 }

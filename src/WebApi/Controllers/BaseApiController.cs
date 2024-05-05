@@ -11,7 +11,7 @@ namespace WebApi.Controllers
         {
             if(result.IsSuccess && result.Data is not null) 
                 return Ok(result.Data);
-            if (!result.IsSuccess && result.Data is null)
+            if (result.IsSuccess && result.Data is null)
                 return NoContent();
             return BadRequest();
         }

@@ -12,6 +12,7 @@ namespace Application.Common
         public T? Data { get; set; } 
 
         public static Response<T> Success(T data) => new Response<T> { IsSuccess = true, Data = data };
+        public static Response<T> SuccessNoContent() => new Response<T> { IsSuccess = true };
         public static Response<T> Failure() => new Response<T> { IsSuccess = false };
     }
 }

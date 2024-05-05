@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Domain.Exceptions;
+using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,23 @@ namespace Thunderwings.UnitTests.Controllers
             Assert.NotNull(result.Value);
             Assert.Equal(StatusCodes.Status400BadRequest, result.StatusCode);
             Assert.Contains("error", problemDetails.Title);
+        }
+
+        [Fact]
+        public void Index_Returns404_NotFoundException()
+        {
+            // arrange
+            _mockFeature.Setup(m => m.Error).Returns(new BasketNotFoundException(1));
+
+            // act
+            var result = Assert.IsType<ObjectResult>(_errorsController.Index());
+            var problemDetails = Assert.IsType<ProblemDetails>(result.Value);
+
+            // assert
+            Assert.NotNull(result);
+            Assert.NotNull(result.Value);
+            Assert.Equal(StatusCodes.Status404NotFound, result.StatusCode);
+            Assert.Contains("Basket not found for user with id 1", problemDetails.Title);
         }
 
     }

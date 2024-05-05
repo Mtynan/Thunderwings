@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class LocalMemoryRepository : ILocalMemoryRepository
+    public class LocalMemoryJetRepository : ILocalMemoryJetRepository
     {
         private List<MilitaryJet> _jets;
 
-        public LocalMemoryRepository(List<MilitaryJet>? seedData = null)
+        public LocalMemoryJetRepository(List<MilitaryJet>? seedData = null)
         {
             if (seedData == null)
             {

@@ -26,7 +26,7 @@ namespace Thunderwings.UnitTests.Controllers
         }
 
         [Fact]  
-        public async Task GetJets_ValidFilter_ReturnsOkResult()
+        public async Task GetJets_ValidFilter_ReturnsExpectedResult()
         {
             //arrange
             var request = new GetMilitaryJetsRequest();
@@ -59,7 +59,7 @@ namespace Thunderwings.UnitTests.Controllers
                  .ReturnsAsync(new Response<PagedResult<MilitaryJetDto>>
                  {
                      Data = null,
-                     IsSuccess = false
+                     IsSuccess = true
                  });
 
             //act

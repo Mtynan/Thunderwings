@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface ILocalMemoryRepository
+    public interface ILocalMemoryJetRepository
     {
         Task<(List<MilitaryJet> filteredJets, int totalCount)> GetJets(MilitaryJetFilter filter, int pageNumber, int pageSize);
     }

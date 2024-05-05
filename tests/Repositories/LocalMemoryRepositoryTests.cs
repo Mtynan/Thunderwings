@@ -12,7 +12,7 @@ namespace Thunderwings.UnitTests.Repositories
 {
     public class LocalMemoryRepositoryTests
     {
-        private LocalMemoryRepository _repo;
+        private LocalMemoryJetRepository _repo;
         [Fact]
         public async Task GetJets_ReturnsCorrectlyFilteredData()
         {
@@ -23,7 +23,7 @@ namespace Thunderwings.UnitTests.Repositories
                 new MilitaryJet { Id = 2, Name = "matt1", Manufacturer = "mt1", Country = "UK", Role = "Fighter", TopSpeed = 100, Price = 120 },
                 new MilitaryJet { Id = 3, Name = "matt2", Manufacturer = "mt2", Country = "France", Role = "Fighter", TopSpeed = 100, Price = 115 }
             };
-            _repo = new LocalMemoryRepository(data);
+            _repo = new LocalMemoryJetRepository(data);
             var filter = new MilitaryJetFilter { Country = "USA" };
 
             // act
@@ -46,7 +46,7 @@ namespace Thunderwings.UnitTests.Repositories
                 new MilitaryJet { Id = 2, Name = "matt1", Manufacturer = "mt1", Country = "UK", Role = "Fighter", TopSpeed = 100, Price = 120 },
                 new MilitaryJet { Id = 3, Name = "matt2", Manufacturer = "mt2", Country = "France", Role = "Fighter", TopSpeed = 100, Price = 115 }
             };
-            _repo = new LocalMemoryRepository(data);
+            _repo = new LocalMemoryJetRepository(data);
             var filter = new MilitaryJetFilter(); 
 
             // act
