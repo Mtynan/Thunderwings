@@ -1,0 +1,235 @@
+openapi: 3.0.1
+info:
+  title: Thunderwings API
+  description: 'Allows for filtering of Military Jets. Basket process for creating a basket, adding or removing items from the basket. Checkout Process. '
+  version: v1
+paths:
+  /api/Basket/{userId}:
+    get:
+      tags:
+        - Basket
+      summary: Retrieves the users basket by User Id.
+      parameters:
+        - name: userId
+          in: path
+          description: The userId.
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Successful operation.
+        '400':
+          description: Validation error.
+        '404':
+          description: When the basket doesn't exist.
+  /api/Basket:
+    post:
+      tags:
+        - Basket
+      summary: Creates the users basket.
+      requestBody:
+        description: The create basket request.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBasketRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateBasketRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreateBasketRequest'
+      responses:
+        '200':
+          description: Successful operation.
+        '400':
+          description: Validation error.
+  /api/Basket/{userId}/items:
+    post:
+      tags:
+        - Basket
+      summary: Add an item to the basket. Creates a Basket for the user if one doesn't exist.
+      parameters:
+        - name: userId
+          in: path
+          description: The userId.
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The Military Jet you're adding the to basket.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddBasketItemRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AddBasketItemRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AddBasketItemRequest'
+      responses:
+        '200':
+          description: Successful operation.
+        '400':
+          description: Validation error.
+        '404':
+          description: When Military Jet you're trying to add doesn't exist.
+  /api/Basket/{userId}/items/{itemId}:
+    delete:
+      tags:
+        - Basket
+      summary: Removes an item from the basket.
+      parameters:
+        - name: userId
+          in: path
+          description: The userId.
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+        - name: itemId
+          in: path
+          description: The Id of the Military Jet you wish to remove.
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Successful operation.
+        '400':
+          description: Validation error.
+        '404':
+          description: When the user has no basket.
+  /api/Basket/checkout/{userId}:
+    post:
+      tags:
+        - Basket
+      summary: Checks out the basket and clears the users basket on success.
+      parameters:
+        - name: userId
+          in: path
+          description: The userId.
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Successful operation.
+        '209':
+          description: When there are no items in the basket to checkout.
+        '400':
+          description: Validation error.
+        '404':
+          description: When the user has no basket.
+  /api/MilitaryJets:
+    get:
+      tags:
+        - MilitaryJets
+      summary: Retrieves a list of military jets based on specified filtering criteria
+      parameters:
+        - name: Name
+          in: query
+          description: The Name of the Jet.
+          style: form
+          schema:
+            type: string
+            example: F-22 Raptor
+          example: F-22 Raptor
+        - name: Manufacturer
+          in: query
+          description: The Manufacturer of the Jet.
+          style: form
+          schema:
+            type: string
+            example: Lockheed Martin
+          example: Lockheed Martin
+        - name: Country
+          in: query
+          description: The Country Where the Jet was made.
+          style: form
+          schema:
+            type: string
+            example: Russia
+          example: Russia
+        - name: Role
+          in: query
+          description: The Role of the Jet.
+          style: form
+          schema:
+            type: string
+            example: Multirole fighter
+          example: Multirole fighter
+        - name: TopSpeed
+          in: query
+          description: The minimum speed you want to filter by.
+          style: form
+          schema:
+            type: integer
+            format: int32
+            example: 1520
+          example: 1520
+        - name: Price
+          in: query
+          description: The minimum price you want to filter by.
+          style: form
+          schema:
+            type: integer
+            format: int32
+            example: 70000000
+          example: 70000000
+        - name: PageNumber
+          in: query
+          description: The page number of the results to fetch. If page number is not supplied 1 is default.
+          style: form
+          schema:
+            type: integer
+            format: int32
+            example: 1
+          example: 1
+        - name: PageSize
+          in: query
+          description: The number of items to return per page. If not supplied, default is 10.
+          style: form
+          schema:
+            type: integer
+            format: int32
+            example: 10
+          example: 10
+      responses:
+        '200':
+          description: Successful operation.
+        '204':
+          description: Successful operation with no results.
+components:
+  schemas:
+    AddBasketItemRequest:
+      type: object
+      properties:
+        militaryJetId:
+          type: integer
+          description: The Id of the MilitaryJet to add the to basket.
+          format: int32
+          example: 1
+      additionalProperties: false
+      description: The request to Add an Item to the Basket.
+    CreateBasketRequest:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: The Id the user.
+          format: int32
+          example: 1
+      additionalProperties: false
+      description: The request to create a new basket for the user.

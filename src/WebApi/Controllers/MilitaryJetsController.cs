@@ -6,6 +6,9 @@ using WebApi.Requests.MilitaryJets;
 
 namespace WebApi.Controllers
 {
+    /// <summary>
+    /// Manages Military Jets.
+    /// </summary>
     public class MilitaryJetsController : BaseApiController
     {
         private readonly IMediator _mediator;
@@ -13,7 +16,12 @@ namespace WebApi.Controllers
         {
             _mediator = mediator;
         }
-
+        /// <summary>
+        /// Retrieves a list of military jets based on specified filtering criteria
+        /// </summary>
+        /// <param name="req">The filtering criteria for military jets.</param>
+        /// <response code="200">Successful operation.</response>
+        /// <response code="204">Successful operation with no results.</response>
         [HttpGet]
         public async Task<IActionResult> GetJets([FromQuery] GetMilitaryJetsRequest req)
         {   
