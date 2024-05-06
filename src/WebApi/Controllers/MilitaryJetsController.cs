@@ -22,6 +22,7 @@ namespace WebApi.Controllers
         /// <param name="req">The filtering criteria for military jets.</param>
         /// <response code="200">Successful operation.</response>
         /// <response code="204">Successful operation with no results.</response>
+        /// <response code="400">Validation error.</response>
         [HttpGet]
         public async Task<IActionResult> GetJets([FromQuery] GetMilitaryJetsRequest req)
         {   

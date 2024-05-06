@@ -211,6 +211,8 @@ paths:
           description: Successful operation.
         '204':
           description: Successful operation with no results.
+        '400':
+          description: Validation error.
 components:
   schemas:
     AddBasketItemRequest:
