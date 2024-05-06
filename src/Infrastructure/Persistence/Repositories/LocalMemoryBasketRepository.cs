@@ -75,5 +75,15 @@ namespace Infrastructure.Persistence.Repositories
             return Task.FromResult(basket);
 
         }
+        public Task ClearBasket(int userId)
+        {
+            var basket = _basketList.FirstOrDefault(b => b.UserId == userId);
+            if (basket != null)
+            {
+                basket.Items.Clear();  
+            }
+            return Task.CompletedTask;
+        }
+
     }
 }

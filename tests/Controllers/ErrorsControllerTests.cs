@@ -63,5 +63,22 @@ namespace Thunderwings.UnitTests.Controllers
             Assert.Contains("Basket not found for user with id 1", problemDetails.Title);
         }
 
+        [Fact]
+        public void Index_Returns409_EmptyBasketException()
+        {
+            // arrange
+            _mockFeature.Setup(m => m.Error).Returns(new EmptyBasketException(1));
+
+            // act
+            var result = Assert.IsType<ObjectResult>(_errorsController.Index());
+            var problemDetails = Assert.IsType<ProblemDetails>(result.Value);
+
+            // assert
+            Assert.NotNull(result);
+            Assert.NotNull(result.Value);
+            Assert.Equal(StatusCodes.Status409Conflict, result.StatusCode);
+            Assert.Contains("The basket with the Id 1 is empty", problemDetails.Title);
+        }
+
     }
 }

@@ -43,6 +43,20 @@ namespace Infrastructure.Persistence.Repositories
             return Task.FromResult((filterJets, totalCount));
         }
 
+        public bool Exists(int jetId)
+        {
+            return _jets.Any(jet => jet.Id == jetId);
+        }
+
+        public Task<int> CalculateTotalPrice(IEnumerable<int> jetIds)
+        {
+            var total = _jets
+                .Where(jet => jetIds.Contains(jet.Id))
+                .Sum(jet => jet.Price);
+
+            return Task.FromResult(total);
+        }
+
         private IQueryable<MilitaryJet> ApplyFilter(IQueryable<MilitaryJet> query, MilitaryJetFilter filter)
         {
             if (!string.IsNullOrWhiteSpace(filter.Name))

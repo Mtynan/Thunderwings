@@ -1,16 +1,10 @@
 ﻿using Domain.Common;
 using Domain.Entities;
 using Infrastructure.Persistence.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Thunderwings.UnitTests.Repositories
 {
-    public class LocalMemoryRepositoryTests
+    public class LocalMemoryJetRepositoryTests
     {
         private LocalMemoryJetRepository _repo;
         [Fact]
@@ -57,6 +51,26 @@ namespace Thunderwings.UnitTests.Repositories
             Assert.Equal(2, filteredJetsPage1.Count);
             Assert.Single(filteredJetsPage2); 
             Assert.Equal(3, totalCount); 
+        }
+
+        [Fact]
+        public async Task CalculateTotalPrice_ValidIds_ReturnsCorrectTotal()
+        {
+            // arrange
+            var jetIds = new List<int> { 1, 2 };
+            var data = new List<MilitaryJet>
+            {
+                new MilitaryJet { Id = 1, Name = "matt", Manufacturer = "mt", Country = "USA", Role = "Fighter", TopSpeed = 100, Price = 100 },
+                new MilitaryJet { Id = 2, Name = "matt1", Manufacturer = "mt1", Country = "UK", Role = "Fighter", TopSpeed = 100, Price = 150 },
+                new MilitaryJet { Id = 3, Name = "matt2", Manufacturer = "mt2", Country = "France", Role = "Fighter", TopSpeed = 100, Price = 115 }
+            };
+            _repo = new LocalMemoryJetRepository(data);
+
+            // act
+            var total = await _repo.CalculateTotalPrice(jetIds);
+
+            // assert
+            Assert.Equal(250, total);  
         }
     }
 }

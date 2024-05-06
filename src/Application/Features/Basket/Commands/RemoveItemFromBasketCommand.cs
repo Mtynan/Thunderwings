@@ -14,14 +14,14 @@ namespace Application.Features.Basket.Commands
     public record RemoveItemFromBasketCommand(int UserId, int ItemId) : IRequest<Response<BasketDto>>;
     internal sealed class RemoveItemFromBasketCommandHandler : IRequestHandler<RemoveItemFromBasketCommand, Response<BasketDto>>
     {
-        private readonly ILocalMemoryBasketRepository _localMemoryRepository;
-        public RemoveItemFromBasketCommandHandler(ILocalMemoryBasketRepository localMemoryRepository)
+        private readonly ILocalMemoryBasketRepository _localMemoryBasketRepository;
+        public RemoveItemFromBasketCommandHandler(ILocalMemoryBasketRepository localMemoryBasketRepository)
         {
-            _localMemoryRepository = localMemoryRepository;
+            _localMemoryBasketRepository = localMemoryBasketRepository;
         }
         public async Task<Response<BasketDto>> Handle(RemoveItemFromBasketCommand request, CancellationToken cancellationToken)
         {
-            var updatedBasket = await _localMemoryRepository.RemoveItemFromBasket(request.UserId, request.ItemId);
+            var updatedBasket = await _localMemoryBasketRepository.RemoveItemFromBasket(request.UserId, request.ItemId);
             if(updatedBasket is null)
             {
                 throw new BasketNotFoundException(request.UserId);

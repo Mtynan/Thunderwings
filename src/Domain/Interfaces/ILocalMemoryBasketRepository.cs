@@ -13,6 +13,8 @@ namespace Domain.Interfaces
         Task<Basket> CreateBasket(int userId);
         Task<Basket> AddItemToBasket(int userId, BasketItem item);
         Task<Basket?> RemoveItemFromBasket(int userId, int itemId);
-   
+        Task ClearBasket(int userId);
+
+
     }
 }

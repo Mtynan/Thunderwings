@@ -121,5 +121,27 @@ namespace Thunderwings.UnitTests.Controllers
             var okResult = Assert.IsType<NoContentResult>(result);
             Assert.Equal(204, okResult.StatusCode);
         }
+
+        [Fact]
+        public async Task Checkout_ValidData_ReturnsExpectedResult()
+        {
+            //arrange
+            int userId = 1;
+            var checkoutResponse = new Response<OrderConfirmationDto>
+            {
+                IsSuccess = true,
+                Data = new OrderConfirmationDto { UserId = userId, PurchaseDate = DateTime.Now, TotalPrice = 10 }
+            };
+
+            _mockMediatR.Setup(m => m.Send(It.IsAny<CheckoutCommand>(), It.IsAny<CancellationToken>()))
+                        .ReturnsAsync(checkoutResponse);
+
+            // Act
+            var result = await _basketController.Checkout(userId);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(200, okResult.StatusCode);
+        }
     }
 }
