@@ -108,7 +108,7 @@ paths:
         '400':
           description: Validation error.
         '404':
-          description: When the user has no basket.
+          description: When the specified item is not in the users basket or the user has no basket.
   /api/Basket/checkout/{userId}:
     post:
       tags:

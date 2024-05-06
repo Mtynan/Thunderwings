@@ -61,7 +61,7 @@ namespace WebApi.Controllers
         /// <param name="itemId">The Id of the Military Jet you wish to remove.</param>
         /// <response code="200">Successful operation.</response>
         /// <response code="400">Validation error.</response>
-        /// <response code="404">When the user has no basket.</response>
+        /// <response code="404">When the specified item is not in the users basket or the user has no basket.</response>
         [HttpDelete("{userId:int}/items/{itemId:int}")]
         public async Task<IActionResult> RemoveItemFromBasket(int userId, int itemId)
         {
